@@ -1,9 +1,9 @@
-import { FastifyPluginAsync } from 'fastify'
+import { FastifyPluginAsync } from 'fastify';
 
 const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get('/', async function (request, reply) {
-    return { root: true }
-  })
-}
+    reply.redirect(301, '/tweets');
+  });
+};
 
 export default root;
