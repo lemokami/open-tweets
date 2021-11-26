@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <% tweets.forEach(tweet => { %>
+    <h1><%= tweet.tweet %></h1>
+    <% }); %>
+  </body>
+</html>

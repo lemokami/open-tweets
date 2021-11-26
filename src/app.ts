@@ -2,6 +2,8 @@ import { join } from 'path';
 import AutoLoad, { AutoloadPluginOptions } from 'fastify-autoload';
 import { FastifyPluginAsync } from 'fastify';
 import { connect } from 'mongoose';
+import * as ejs from 'ejs';
+import pointOfView from 'point-of-view';
 
 export type AppOptions = {
   // Place your custom options for app below here.
@@ -20,6 +22,13 @@ const app: FastifyPluginAsync<AppOptions> = async (
   } catch (err) {
     console.error(err);
   }
+  console.log('/src/view');
+
+  fastify.register(pointOfView, {
+    engine: {
+      ejs: ejs,
+    },
+  });
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
