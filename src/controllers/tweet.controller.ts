@@ -12,6 +12,7 @@ const tweetController: Record<string, fastifyHandler> = {
       rep.code(401).send('error finding tweets');
     }
   },
+
   getOne: async (req, rep) => {
     const { id } = req.params as { id: string };
     try {
@@ -21,6 +22,7 @@ const tweetController: Record<string, fastifyHandler> = {
       rep.send('File not found');
     }
   },
+
   create: async (req, rep) => {
     const tweetData = req.body;
     try {
