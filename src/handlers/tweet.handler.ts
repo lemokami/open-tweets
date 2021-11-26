@@ -3,7 +3,7 @@ import { Tweet } from '../models/tweet.model';
 
 type fastifyHandler = (req: FastifyRequest, rep: FastifyReply) => Promise<void>;
 
-const tweetController: Record<string, fastifyHandler> = {
+const tweetHandler: Record<string, fastifyHandler> = {
   getAll: async (req, rep) => {
     try {
       const tweets = await Tweet.find();
@@ -34,4 +34,4 @@ const tweetController: Record<string, fastifyHandler> = {
   },
 };
 
-export default tweetController;
+export default tweetHandler;

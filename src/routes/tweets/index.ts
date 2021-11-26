@@ -1,11 +1,11 @@
 import { FastifyPluginAsync } from 'fastify';
-import tweetController from '../../controllers/tweet.controller';
+import tweetHandler from '../../handlers/tweet.handler';
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.route({
     method: 'GET',
     url: '/',
-    handler: tweetController.getAll,
+    handler: tweetHandler.getAll,
   });
 
   fastify.route({
@@ -19,7 +19,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         },
       },
     },
-    handler: tweetController.getOne,
+    handler: tweetHandler.getOne,
   });
 
   fastify.route({
@@ -35,7 +35,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         },
       },
     },
-    handler: tweetController.create,
+    handler: tweetHandler.create,
   });
 };
 
