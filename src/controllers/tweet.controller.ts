@@ -4,7 +4,7 @@ import { Tweet } from '../models/tweet.model';
 type fastifyHandler = (req: FastifyRequest, rep: FastifyReply) => Promise<void>;
 
 const tweetController: Record<string, fastifyHandler> = {
-  getAll: async (req: FastifyRequest, rep: FastifyReply) => {
+  getAll: async (req, rep) => {
     try {
       const tweets = await Tweet.find();
       rep.code(200).send(tweets);
