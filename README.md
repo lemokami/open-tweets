@@ -1,7 +1,7 @@
 
 # Open-Tweets
 
-Project learned while learning fastify. Here, you can create a tweet and find all the tweets in the home page. Thats it nothing more.
+Project made while learning fastify. Here, you can create a tweet and find all the tweets in the home page. Thats it nothing more.
 
 
 
