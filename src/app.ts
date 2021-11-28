@@ -4,7 +4,8 @@ import { FastifyPluginAsync } from 'fastify';
 import { connect } from 'mongoose';
 import * as ejs from 'ejs';
 import pointOfView from 'point-of-view';
-
+import formBodyPlugin from 'fastify-formbody';
+import fastifyEnv from 'fastify-env';
 export type AppOptions = {
   // Place your custom options for app below here.
 } & Partial<AutoloadPluginOptions>;
@@ -14,15 +15,14 @@ const app: FastifyPluginAsync<AppOptions> = async (
   opts
 ): Promise<void> => {
   // Place here your custom code!
+  fastify.register(formBodyPlugin);
+  fastify.register(fastifyEnv, { dotenv: true, schema: { type: 'object' } });
   try {
-    await connect(
-      'mongodb://mongo:SQjA9dydlCbDp8HXhGqS@containers-us-west-5.railway.app:6765'
-    );
+    await connect(process.env.MONGO_CONNECTION_STRING!);
     console.log('db connected');
   } catch (err) {
     console.error(err);
   }
-  console.log('/src/view');
 
   fastify.register(pointOfView, {
     engine: {
