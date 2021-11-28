@@ -4,16 +4,16 @@ import { Tweet } from '../models/tweet.model';
 type fastifyHandler = (req: FastifyRequest, rep: FastifyReply) => Promise<void>;
 
 const tweetHandler: Record<string, fastifyHandler> = {
-  getAll: async (req, rep) => {
+  getAllView: async (req, rep) => {
     try {
-      const tweets = await Tweet.find();
-      rep.code(200).send(tweets);
+      const tweets = await Tweet.find().sort({ updatedAt: -1 });
+      await rep.view('/src/view/tweets.ejs', { tweets: tweets, name: 'Home' });
     } catch (err) {
       rep.code(401).send('error finding tweets');
     }
   },
 
-  getOne: async (req, rep) => {
+  getOneView: async (req, rep) => {
     const { id } = req.params as { id: string };
     try {
       const tweets = await Tweet.find({ _id: id });
@@ -23,11 +23,15 @@ const tweetHandler: Record<string, fastifyHandler> = {
     }
   },
 
+  createView: async (req, rep) => {
+    await rep.view('/src/view/create.ejs', { name: 'Create Tweet' });
+  },
+
   create: async (req, rep) => {
     const tweetData = req.body;
     try {
-      const dbResp = await Tweet.create(tweetData);
-      rep.code(200).send(dbResp);
+      await Tweet.create(tweetData);
+      await rep.redirect('/');
     } catch (err) {
       rep.code(503).send('Unexpected error: ' + err);
     }
